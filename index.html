@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekendream - Vive el Sueño con tu Club</title>
+    <style>
+        :root {
+            --primary: #1a2b6d;
+            --secondary: #e63946;
+            --accent: #f1faee;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2a4cb3 100%);
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231a2b6d" fill-opacity="0.2" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom no-repeat, linear-gradient(135deg, var(--primary) 0%, #2a4cb3 100%);
+            background-size: 100% 50%, cover;
+            color: white;
+            text-align: center;
+            padding: 80px 0 160px;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+        }
+        
+        /* Ticket Section */
+        .ticket-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+        
+        .ticket-container {
+            perspective: 1000px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        
+        .ticket {
+            background: linear-gradient(135deg, #ffd700 0%, #f9a602 100%);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .ticket:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+        
+        .ticket:before, .ticket:after {
+            content: '';
+            position: absolute;
+            background-color: var(--light);
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+        }
+        
+        .ticket:before {
+            top: 50%;
+            left: -15px;
+            transform: translateY(-50%);
+        }
+        
+        .ticket:after {
+            top: 50%;
+            right: -15px;
+            transform: translateY(-50%);
+        }
+        
+        .ticket-header {
+            border-bottom: 2px dashed rgba(0,0,0,0.2);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .ticket-subtitle {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .ticket-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .number {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .number:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .ticket-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .info-item h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .info-item p {
+            font-weight: 600;
+        }
+        
+        .ticket-footer {
+            font-style: italic;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--accent);
+            padding: 80px 0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        /* How to Participate */
+        .participation {
+            padding: 80px 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background-color: var(--accent);
+            padding: 80px 0;
+        }
+        
+        .accordion {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .accordion-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            padding: 20px;
+            max-height: 300px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .legal {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            max-width: 600px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .ticket-numbers {
+                flex-wrap: wrap;
+            }
+            
+            .ticket-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation for numbers */
+        @keyframes numberRoll {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        .number {
+            animation: numberRoll 0.5s ease forwards;
+        }
+        
+        .number:nth-child(1) { animation-delay: 0.1s; }
+        .number:nth-child(2) { animation-delay: 0.2s; }
+        .number:nth-child(3) { animation-delay: 0.3s; }
+        .number:nth-child(4) { animation-delay: 0.4s; }
+        .number:nth-child(5) { animation-delay: 0.5s; }
+        .number:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Weeken<span>dream</span></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Vive el sueño de compartir un fin de semana con tus ídolos</h1>
+            <p>La experiencia única para los socios más fieles del club</p>
+            <a href="#participate" class="cta-button">Participar ahora</a>
+        </div>
+    </section>
+
+    <section class="ticket-section">
+        <div class="container">
+            <h2 class="section-title">Tu Boleto al Sueño</h2>
+            <div class="ticket-container">
+                <div class="ticket">
+                    <div class="ticket-header">
+                        <h3 class="ticket-title">Weekendream</h3>
+                        <p class="ticket-subtitle">Sorteo Experiencia Única</p>
+                    </div>
+                    
+                    <div class="ticket-numbers">
+                        <div class="number">0</div>
+                        <div class="number">5</div>
+                        <div class="number">1</div>
+                        <div class="number">9</div>
+                        <div class="number">2</div>
+                        <div class="number">7</div>
+                    </div>
+                    
+                    <div class="ticket-info">
+                        <div class="info-item">
+                            <h4>FECHA DEL SORTEO</h4>
+                            <p>15 de Diciembre, 2023</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>NÚMERO DE BOLETO</h4>
+                            <p>#WD-051927</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>PRECIO POR BOLETO</h4>
+                            <p>€25</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>PREMIOS DISPONIBLES</h4>
+                            <p>2 Experiencias Weekendream</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-footer">
+                        <p>¡Sueña en grande! Esta podría ser tu oportunidad única</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">La Experiencia Weekendream</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏨</div>
+                    <h3>Hospedaje de Lujo</h3>
+                    <p>Alojamiento en el mismo hotel de lujo donde se hospeda el equipo, con todas las comodidades incluidas.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚽</div>
+                    <h3>Acceso a Entrenamientos</h3>
+                    <p>Observa de cerca las sesiones de entrenamiento del equipo con acceso privilegiado al campo.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h3>Encuentro con Jugadores</h3>
+                    <p>Comparte momentos únicos con los jugadores en un ambiente exclusivo y relajado.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎫</div>
+                    <h3>Butacas Premium</h3>
+                    <p>Disfruta del próximo partido desde las mejores localidades del estadio con atención VIP.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="participation" id="participate">
+        <div class="container">
+            <h2 class="section-title">Cómo Participar</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Regístrate</h3>
+                    <p>Completa el formulario de inscripción con tus datos como socio del club.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Selecciona</h3>
+                    <p>Elige la cantidad de boletos que deseas adquirir para el sorteo.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Realiza el Pago</h3>
+                    <p>Completa el proceso de pago seguro a través de nuestra plataforma.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Confirma</h3>
+                    <p>Recibe la confirmación y tu boleto numerado para el sorteo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        ¿Quiénes pueden participar en el sorteo Weekendream?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>El sorteo está exclusivamente disponible para socios del club con membresía activa. Cada socio puede adquirir hasta 5 boletos por sorteo.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        ¿Qué incluye exactamente la experiencia Weekendream?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>La experiencia incluye: alojamiento de 2 noches en hotel de lujo, todas las comidas, acceso a entrenamientos privados, encuentro con jugadores y cuerpo técnico, traslados exclusivos y entradas premium para el partido.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        ¿Cómo se seleccionará a los ganadores?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>El sorteo se realizará de forma transparente ante notario público el día indicado. Se utilizará un sistema de selección aleatoria certificado para garantizar la equidad del proceso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="logo">Weeken<span>dream</span></div>
+            <p>Una experiencia exclusiva para los socios más fieles</p>
+            <div class="legal">
+                <p>*Este sorteo está sujeto a términos y condiciones. Solo disponible para mayores de 18 años. El importe de los boletos no es reembolsable. Consulta las bases legales completas en la web oficial del club.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animación para los números del boleto
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.number');
+            const finalNumbers = [0, 5, 1, 9, 2, 7]; // Números finales
+            
+            numbers.forEach((numberElem, index) => {
+                let counter = 0;
+                const interval = setInterval(() => {
+                    numberElem.textContent = Math.floor(Math.random() * 10);
+                    counter++;
+                    
+                    if (counter > 20) {
+                        clearInterval(interval);
+                        numberElem.textContent = finalNumbers[index];
+                    }
+                }, 50);
+            });
+        }
+        
+        // Iniciar animación de números cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            animateNumbers();
+            
+            // Reiniciar animación cada 5 segundos
+            setInterval(animateNumbers, 5000);
+            
+            // Acordeón de FAQ
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const isActive = content.classList.contains('active');
+                    
+                    // Cerrar todos los acordeones
+                    document.querySelectorAll('.accordion-content').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    document.querySelectorAll('.accordion-header span').forEach(item => {
+                        item.textContent = '+';
+                    });
+                    
+                    // Abrir el acordeón clickeado si no estaba activo
+                    if (!isActive) {
+                        content.classList.add('active');
+                        this.querySelector('span').textContent = '-';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
